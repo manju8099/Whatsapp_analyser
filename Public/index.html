@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>POS WhatsApp Support Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<h2>POS WhatsApp Support Dashboard</h2>
+
+<div>
+Total Issues: <span id="total">0</span>
+</div>
+
+<h3>Issues</h3>
+
+<table border="1">
+<thead>
+<tr>
+<th>Issue</th>
+<th>Reported By</th>
+<th>Reported At</th>
+<th>Resolved By</th>
+<th>Resolved At</th>
+<th>Resolution Time</th>
+</tr>
+</thead>
+
+<tbody id="issues"></tbody>
+
+</table>
+
+<script>
+
+async function loadStats(){
+
+const res = await fetch('/api/stats');
+const data = await res.json();
+
+document.getElementById("total").innerText=data.total;
+
+}
+
+async function loadIssues(){
+
+const res = await fetch('/api/issues');
+const data = await res.json();
+
+const table=document.getElementById("issues");
+
+table.innerHTML="";
+
+data.forEach(i=>{
+
+table.innerHTML+=`
+<tr>
+<td>${i.issue}</td>
+<td>${i.reported_by}</td>
+<td>${i.reported_at}</td>
+<td>${i.resolved_by}</td>
+<td>${i.resolved_at}</td>
+<td>${i.resolution_time}</td>
+</tr>
+`;
+
+});
+
+}
+
+loadStats();
+loadIssues();
+
+</script>
+
+</body>
+</html>
