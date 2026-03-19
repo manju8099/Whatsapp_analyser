@@ -3,7 +3,7 @@ const qrcode = require('qrcode-terminal');
 const sqlite3 = require('sqlite3').verbose();
 
 const db = new sqlite3.Database('./messages.db');
-
+/*comment*/
 db.run(`
 CREATE TABLE IF NOT EXISTS messages(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
